@@ -1,0 +1,9 @@
+# Cloudflare Pages configuration via Wrangler
+# Docs: https://developers.cloudflare.com/pages/
+
+name = "soc-cyber-range"
+compatibility_date = "2026-07-23"
+
+[build]
+command = "npm run build"
+output_dir = "dist"
