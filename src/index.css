@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import '@xyflow/react/dist/style.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark light;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0B1220;
+  color: #F3F4F6;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Custom Scrollbar for SOC Panels */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #070B14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1F2937;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Dynamic Glassmorphism Panel styles */
+.soc-glass {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  color: #1E293B;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dark .soc-glass {
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  color: #F3F4F6;
+  box-shadow: none;
+}
+
+/* React Flow custom dark & light backgrounds & edges */
+.react-flow__background {
+  background-color: #F8FAFC !important;
+}
+
+.dark .react-flow__background {
+  background-color: #0B1220 !important;
+}
+
+.react-flow__controls {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  border-radius: 8px;
+}
+
+.dark .react-flow__controls {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid #374151;
+  background: #111827;
+}
+
+.react-flow__controls-button {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #F1F5F9 !important;
+  color: #475569 !important;
+  fill: #475569 !important;
+}
+
+.dark .react-flow__controls-button {
+  background: #111827 !important;
+  border-bottom: 1px solid #374151 !important;
+  color: #9CA3AF !important;
+  fill: #9CA3AF !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #F1F5F9 !important;
+  color: #2563EB !important;
+  fill: #2563EB !important;
+}
+
+.dark .react-flow__controls-button:hover {
+  background: #1F2937 !important;
+  color: #3B82F6 !important;
+  fill: #3B82F6 !important;
+}
+
+/* Edge packet animation */
+@keyframes flowEdge {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animated-packet-edge {
+  stroke-dasharray: 6 6;
+  animation: flowEdge 1s linear infinite;
+}
+
+.animated-attack-edge {
+  stroke-dasharray: 8 4;
+  animation: flowEdge 0.4s linear infinite;
+  stroke: #EF4444 !important;
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.8));
+}
+
+.animated-warning-edge {
+  stroke-dasharray: 6 4;
+  animation: flowEdge 0.7s linear infinite;
+  stroke: #D97706 !important;
+}
+
+.dark .animated-warning-edge {
+  stroke: #F59E0B !important;
+}
