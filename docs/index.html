@@ -292,41 +292,79 @@
   <section id="architecture" class="py-24 border-t border-slate-800/50">
     <div class="max-w-4xl mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">🏗️ Architecture</h2>
+
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-300 mb-4">High-Level Flow</h3>
+      </div>
+
       <div class="p-6 rounded-xl bg-slate-800/30 border border-slate-700/50 overflow-x-auto">
-        <pre class="text-xs md:text-sm text-gray-300 leading-relaxed whitespace-pre">┌──────────────────────────────────────────────────────┐
-│                App (ReactFlowProvider)               │
-├──────────────────────────────────────────────────────┤
-│  ┌──────────┐  ┌────────────────────┐  ┌──────────┐ │
-│  │  Header  │  │   ReactFlow Canvas │  │  Right   │ │
-│  │  (Brand, │  │  ┌────┐ ┌──┐ ┌───┐ │  │Inspector │ │
-│  │  Tabs)   │  │  │Node│ │Ed│ │Map│ │  │(Details) │ │
-│  └──────────┘  │  └────┘ └──┘ └───┘ │  └──────────┘ │
-│                │  ┌──────────────┐   │               │
-│  ┌──────────┐  │  │ToolbarOverlay│   │               │
-│  │   Left   │  │  │ (View Modes) │   │               │
-│  │ Sidebar  │  │  └──────────────┘   │               │
-│  └──────────┘  └────────────────────┘               │
-│                ┌────────────────────┐                │
-│                │    Bottom Drawer   │                │
-│                │ (Logs, MITRE, KPI) │                │
-│                └────────────────────┘                │
-├──────────────────────────────────────────────────────┤
-│  ┌────────────┐ ┌───────────┐ ┌────────┐ ┌────────┐ │
-│  │ LogExplorer│ │MitreMatrix│ │ExecRpt │ │Attacker│ │
-│  └────────────┘ └───────────┘ └────────┘ └────────┘ │
-└──────────────────────────────────────────────────────┘
-         ▲                            │
-         │      Store Updates         │  Actions
-         ▼                            ▼
-┌──────────────────────────────────────────────────────┐
-│              Zustand Stores (4 stores)               │
-└──────────────────────────────────────────────────────┘
-         ▲                            │
-         │       Tick Events          │
-         ▼                            ▼
-┌──────────────────────────────────────────────────────┐
-│              Simulation Engine (8 systems)            │
-└──────────────────────────────────────────────────────┘</pre>
+        <pre class="text-xs md:text-sm text-gray-300 leading-relaxed whitespace-pre">┌──────────────────────────────────────────────────────────────────────────┐
+│                            App (ReactFlowProvider)                       │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ┌──────────────┐    ┌────────────────────────────────┐  ┌─────────────┐ │
+│  │   Header     │    │        ReactFlow Canvas        │  │    Right    │ │
+│  │ (Brand,      │    │  ┌───────┐ ┌───────┐ ┌───────┐ │  │  Inspector  │ │
+│  │  Controls,   │    │  │SocNode│ │SocEdge│ │MiniMap│ │  │  (Device    │ │
+│  │  Tabs)       │    │  └───────┘ └───────┘ └───────┘ │  │   Details)  │ │
+│  └──────────────┘    │  ┌──────────────────────────┐  │  └─────────────┘ │
+│                      │  │      ToolbarOverlay      │  │                  │
+│  ┌──────────────┐    │  │       (View Modes)       │  │                  │
+│  │    Left      │    │  └──────────────────────────┘  │                  │
+│  │  Sidebar     │    └────────────────────────────────┘                  │
+│  │ (Devices)    │    ┌────────────────────────────────┐                  │
+│  └──────────────┘    │          Bottom Drawer         │                  │
+│                      │   (Logs, MITRE, Traffic, KPIs) │                  │
+│                      └────────────────────────────────┘                  │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ┌───────────────┐  ┌─────────────┐  ┌───────────────┐  ┌──────────────┐ │
+│  │  LogExplorer  │  │ MitreMatrix │  │  ExecReport   │  │   Attacker   │ │
+│  │  (SIEM Logs)  │  │  (ATT&amp;CK)   │  │ (Charts/KPI)  │  │   Toolbox    │ │
+│  └───────────────┘  └─────────────┘  └───────────────┘  └──────────────┘ │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+                         ▲                          │
+                         │      Store Updates       │  Actions
+                         ▼                          ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                              Zustand Stores                                │
+│                                                                            │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌───────────┐ │
+│  │ useGraphStore  │  │ useSimulation  │  │ useTelemetry   │  │ useUIStore│ │
+│  │ (Nodes/Edges)  │  │ (Scenario/Step)│  │ (Logs/Alerts)  │  │ (Theme/   │ │
+│  └────────────────┘  └────────────────┘  └────────────────┘  │  Mode)    │ │
+│                                                              └───────────┘ │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+                         ▲
+                         │                   Tick Events
+                         ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│                            Simulation Engine                             │
+│                                                                          │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
+│  │ Telemetry│  │ Traffic  │  │ Process  │  │ Service  │  │   User   │  │
+│  │  System  │  │  System  │  │  System  │  │  System  │  │  System  │  │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │
+│                                                                          │
+│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐                       │
+│  │   Log    │  │  Alert   │  │     Attack       │                       │
+│  │  System  │  │  System  │  │  System (Steps)  │                       │
+│  └──────────┘  └──────────┘  └──────────────────┘                       │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘</pre>
+      </div>
+
+      <div class="p-6 rounded-xl bg-slate-800/30 border border-slate-700/50 mt-6">
+        <h3 class="text-lg font-semibold text-cyber-400 mb-3">Data Flow</h3>
+        <ol class="list-decimal list-inside space-y-2 text-gray-300">
+          <li><strong class="text-white">User Interactions</strong> → React components dispatch actions to Zustand stores</li>
+          <li><strong class="text-white">Store Updates</strong> → Trigger React re-renders in subscribed components</li>
+          <li><strong class="text-white">Simulation Engine</strong> → Tick-based loop reads store state and writes telemetry/log/alert updates</li>
+          <li><strong class="text-white">Services Layer</strong> → Incident response, scenario execution, and attack services interact with stores</li>
+          <li><strong class="text-white">UI Reflects State</strong> → Real-time updates propagate through React's reactive rendering</li>
+        </ol>
       </div>
     </div>
   </section>
