@@ -292,28 +292,10 @@
   <section id="architecture" class="py-24 border-t border-slate-800/50">
     <div class="max-w-4xl mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">🏗️ Architecture</h2>
-
-      <div class="mb-8">
-        <h3 class="text-xl font-semibold text-gray-300 mb-4">Network Canvas — Giao diện ứng dụng</h3>
-      </div>
-
       <div class="p-4 rounded-xl bg-slate-800/30 border border-slate-700/50">
-        <img src="canva-page.png" alt="Architecture - Network Canvas" class="w-full rounded-lg" />
+        <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/docs/architecture.png" alt="Architecture" class="w-full rounded-lg" />
       </div>
-└──────────────────────────────────────────────────────────────────────────┘</pre>
       </div>
-
-      <div class="p-6 rounded-xl bg-slate-800/30 border border-slate-700/50 mt-6">
-        <h3 class="text-lg font-semibold text-cyber-400 mb-3">Data Flow</h3>
-        <ol class="list-decimal list-inside space-y-2 text-gray-300">
-          <li><strong class="text-white">User Interactions</strong> → React components dispatch actions to Zustand stores</li>
-          <li><strong class="text-white">Store Updates</strong> → Trigger React re-renders in subscribed components</li>
-          <li><strong class="text-white">Simulation Engine</strong> → Tick-based loop reads store state and writes telemetry/log/alert updates</li>
-          <li><strong class="text-white">Services Layer</strong> → Incident response, scenario execution, and attack services interact with stores</li>
-          <li><strong class="text-white">UI Reflects State</strong> → Real-time updates propagate through React's reactive rendering</li>
-        </ol>
-      </div>
-    </div>
   </section>
 
   <!-- Getting Started -->
