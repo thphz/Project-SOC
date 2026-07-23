@@ -249,19 +249,19 @@
       <div class="screenshot-grid space-y-12">
         <div>
           <h3 class="text-xl font-semibold text-gray-300 mb-4 text-center">Network Canvas</h3>
-          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/canva-page.png" alt="Network Canvas" class="w-full" />
+          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/docs/canva-page.png" alt="Network Canvas" class="w-full" />
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-300 mb-4 text-center">SIEM Log Explorer</h3>
-          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/logs-page.png" alt="Log Explorer" class="w-full" />
+          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/docs/logs-page.png" alt="Log Explorer" class="w-full" />
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-300 mb-4 text-center">MITRE ATT&CK Matrix</h3>
-          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/MITRE-page.png" alt="MITRE ATT&CK Matrix" class="w-full" />
+          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/docs/MITRE-page.png" alt="MITRE ATT&CK Matrix" class="w-full" />
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-300 mb-4 text-center">Executive Report</h3>
-          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/report-page.png" alt="Executive Report" class="w-full" />
+          <img src="https://raw.githubusercontent.com/thphz/Project-SOC/main/docs/report-page.png" alt="Executive Report" class="w-full" />
         </div>
       </div>
     </div>
@@ -294,65 +294,12 @@
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">🏗️ Architecture</h2>
 
       <div class="mb-8">
-        <h3 class="text-xl font-semibold text-gray-300 mb-4">High-Level Flow</h3>
+        <h3 class="text-xl font-semibold text-gray-300 mb-4">Network Canvas — Giao diện ứng dụng</h3>
       </div>
 
-      <div class="p-6 rounded-xl bg-slate-800/30 border border-slate-700/50 overflow-x-auto">
-        <pre class="text-xs md:text-sm text-gray-300 leading-relaxed whitespace-pre">┌──────────────────────────────────────────────────────────────────────────┐
-│                            App (ReactFlowProvider)                       │
-├──────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  ┌──────────────┐    ┌────────────────────────────────┐  ┌─────────────┐ │
-│  │   Header     │    │        ReactFlow Canvas        │  │    Right    │ │
-│  │ (Brand,      │    │  ┌───────┐ ┌───────┐ ┌───────┐ │  │  Inspector  │ │
-│  │  Controls,   │    │  │SocNode│ │SocEdge│ │MiniMap│ │  │  (Device    │ │
-│  │  Tabs)       │    │  └───────┘ └───────┘ └───────┘ │  │   Details)  │ │
-│  └──────────────┘    │  ┌──────────────────────────┐  │  └─────────────┘ │
-│                      │  │      ToolbarOverlay      │  │                  │
-│  ┌──────────────┐    │  │       (View Modes)       │  │                  │
-│  │    Left      │    │  └──────────────────────────┘  │                  │
-│  │  Sidebar     │    └────────────────────────────────┘                  │
-│  │ (Devices)    │    ┌────────────────────────────────┐                  │
-│  └──────────────┘    │          Bottom Drawer         │                  │
-│                      │   (Logs, MITRE, Traffic, KPIs) │                  │
-│                      └────────────────────────────────┘                  │
-├──────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  ┌───────────────┐  ┌─────────────┐  ┌───────────────┐  ┌──────────────┐ │
-│  │  LogExplorer  │  │ MitreMatrix │  │  ExecReport   │  │   Attacker   │ │
-│  │  (SIEM Logs)  │  │  (ATT&amp;CK)   │  │ (Charts/KPI)  │  │   Toolbox    │ │
-│  └───────────────┘  └─────────────┘  └───────────────┘  └──────────────┘ │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
-                         ▲                          │
-                         │      Store Updates       │  Actions
-                         ▼                          ▼
-┌────────────────────────────────────────────────────────────────────────────┐
-│                              Zustand Stores                                │
-│                                                                            │
-│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌───────────┐ │
-│  │ useGraphStore  │  │ useSimulation  │  │ useTelemetry   │  │ useUIStore│ │
-│  │ (Nodes/Edges)  │  │ (Scenario/Step)│  │ (Logs/Alerts)  │  │ (Theme/   │ │
-│  └────────────────┘  └────────────────┘  └────────────────┘  │  Mode)    │ │
-│                                                              └───────────┘ │
-│                                                                            │
-└────────────────────────────────────────────────────────────────────────────┘
-                         ▲
-                         │                   Tick Events
-                         ▼
-┌──────────────────────────────────────────────────────────────────────────┐
-│                            Simulation Engine                             │
-│                                                                          │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
-│  │ Telemetry│  │ Traffic  │  │ Process  │  │ Service  │  │   User   │  │
-│  │  System  │  │  System  │  │  System  │  │  System  │  │  System  │  │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │
-│                                                                          │
-│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐                       │
-│  │   Log    │  │  Alert   │  │     Attack       │                       │
-│  │  System  │  │  System  │  │  System (Steps)  │                       │
-│  └──────────┘  └──────────┘  └──────────────────┘                       │
-│                                                                          │
+      <div class="p-4 rounded-xl bg-slate-800/30 border border-slate-700/50">
+        <img src="canva-page.png" alt="Architecture - Network Canvas" class="w-full rounded-lg" />
+      </div>
 └──────────────────────────────────────────────────────────────────────────┘</pre>
       </div>
 
